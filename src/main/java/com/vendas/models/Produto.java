@@ -9,10 +9,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+@Entity
+@Table( name = "PRODUTO" )
 public class Produto {
 	
+	@Id @GeneratedValue( strategy = GenerationType.AUTO )
+	@Column( name = "ID_PRODUTO")
     private Integer idProduto;
+	
+	@Column( name = "PRECO_UNITARIO")
     private BigDecimal precoUnitario;
+	
+	@Column( name = "DESCRICAO")
     private String descricao;
 
     public Produto(Integer idProduto, BigDecimal precoUnitario, String descricao) {

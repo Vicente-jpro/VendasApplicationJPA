@@ -1,11 +1,24 @@
 package com.vendas.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table( name = "ITEM_PEDIDO")
 public class ItemPedido {
+	
+	@Id @GeneratedValue( strategy = GenerationType.AUTO)
+	@Column( name = "ID_TEM_PEDIDO")
 	private Integer idItemPedido;
 	
 	private Pedido pedido;
     private Produto produto;
     
+    @Column( name = "QUANTIDADE")
     private int quantidade;
 	
 	public ItemPedido(Integer idItemPedido, Pedido pedido, Produto produto, int quantidade) {

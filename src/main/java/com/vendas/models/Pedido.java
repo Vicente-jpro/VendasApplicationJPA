@@ -2,12 +2,27 @@ package com.vendas.models;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table( name = "PEDIDO")
 public class Pedido {	
 	
+	@Id @GeneratedValue( strategy = GenerationType.AUTO)
+	@Column( name = "ID_PEDIDO")
 	private Integer idPedido;
     private Cliente cliente;
+    
+    @Column( name = "TOTAL")
     private Integer total;
-	private LocalDate dataPedido;
+	
+    @Column( name = "DATA_PEDIDO")
+    private LocalDate dataPedido;
 	
 	
 	public Pedido(Integer idPedido, Cliente cliente, Integer total, LocalDate dataPedido) {

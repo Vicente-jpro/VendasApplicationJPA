@@ -1,7 +1,23 @@
 package com.vendas.models;
 
+import org.hibernate.annotations.GeneratorType;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table( name = "CLIENTES" )
 public class Cliente {
+	
+	@Id @GeneratedValue( strategy = GenerationType.AUTO)
+	@Column( name = "ID_CLIENTE")
 	private Integer idCliente;
+	
+	@Column( name = "NOME", length = 100 )
 	private String nome;
 	
 	
