@@ -1,66 +1,60 @@
 package com.vendas.repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vendas.models.Cliente;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 @Repository
 public class ClienteRepository {
 
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private EntityManager entityManager;
 	
+	@Transactional
 	public Cliente create(Cliente cliente) {
-		String sql = "INSERT INTO clientes (nome) VALUES(?)";
-		
-		jdbcTemplate.update(sql, new Object[] {cliente.getNome()});
+		entityManager.persist(cliente);
 		return cliente;
 	}
 	
+	@Transactional
 	public Cliente update(Cliente cliente) {
-		String sql = "UPDATE clientes SET nome = ? WHERE id_cliente = ?";
-		jdbcTemplate.update(sql, new Object[] {cliente.getNome(), cliente.getIdCliente()});
+		entityManager.merge( cliente );
 		return cliente;
 	}
 	
+	@Transactional
 	public void delete(Cliente cliente) {
-		String sql = "DELETE FROM clientes WHERE id_cliente = ?";
-		jdbcTemplate.update(sql, new Object[] {cliente.getIdCliente()});
+		Cliente client = findById( cliente );
+		entityManager.remove(client);  
 	}
 	
+	@Transactional(readOnly = true)
+	public Cliente findById(Cliente cliente) {
+		Cliente client = entityManager.find( Cliente.class, cliente.getIdCliente() );
+		return client;
+	}
+	
+	@Transactional( readOnly = true )
+	public List<Cliente> findByName(Cliente cliente){
+		// c -> This is a Cliente object reference
+		String jpql = "SELECT c FROM clientes c WHERE c.nome like :nome";
+		TypedQuery<Cliente> query =  entityManager.createQuery(jpql, Cliente.class);
+		query.setParameter("nome", "%"+cliente.getNome()+"%");
+		return query.getResultList();
+	}
+	
+	@Transactional( readOnly = true )
 	public List<Cliente> getAll(){
-		String sql = "SELECT * FROM clientes";
-		return jdbcTemplate.query(sql, new RowMapper<Cliente>() {
-
-			@Override
-			public Cliente mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return new Cliente(rs.getInt("id_cliente"),  rs.getString("nome"));
-			}
-			
-		});
+		return entityManager
+				.createQuery("from clientes", Cliente.class)
+				.getResultList();
 	}
-	
-	
-	public List<Cliente> getByIdCliente(Cliente cliente){
-		String sql = "SELECT * FROM clientes where id_cliente = "+cliente.getIdCliente();
-		
-		return jdbcTemplate.query(sql, new RowMapper<Cliente>() {
-
-			@Override
-			public Cliente mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return new Cliente(rs.getInt("id_cliente"),  rs.getString("nome"));
-			}
-			
-		});
-		
-	}
-	
 	
 }
