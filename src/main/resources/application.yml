@@ -1,0 +1,11 @@
+
+#Used to configure enviroment
+spring:
+  profiles:
+    active:
+    - test
+  
+server:
+ port: 8080
+# servlet:
+ #   context-path: /sistema-venda
