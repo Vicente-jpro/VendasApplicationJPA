@@ -1,7 +1,0 @@
-# Development env
-server:
- port: 8080
- servlet:
-    context-path: /sistema-venda
-app:
-  name: My System Java Spring Development
