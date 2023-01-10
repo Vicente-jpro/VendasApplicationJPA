@@ -26,7 +26,8 @@ public class Cliente {
 	private String nome;
 	
 	@OneToMany( mappedBy = "cliente")
-	private List<Pedido> pedidos = new ArrayList<>();
+	private List<Pedido> pedidos ;
+	 
 	
 	public Cliente(Integer idCliente, String nome) {
 		this.idCliente = idCliente;

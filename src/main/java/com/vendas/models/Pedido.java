@@ -1,6 +1,8 @@
 package com.vendas.models;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -28,12 +31,16 @@ public class Pedido {
 	@JoinColumn( name = "CLIENTE_ID" )
     private Cliente cliente;
     
-    @Column( name = "TOTAL")
-    private Integer total;
+	// 1000.00
+    @Column( name = "TOTAL", length = 20, precision = 2)
+    private BigDecimal total;
 	
     @Column( name = "DATA_PEDIDO")
     private LocalDate dataPedido;
 	
+    @OneToMany( mappedBy = "pedido")
+    private List<ItemPedido> itens;
+    
 	
 	
 	public Pedido() {
@@ -48,12 +55,27 @@ public class Pedido {
 		this.idPedido = idPedido;
 	}
 
-	public Integer getTotal() {
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
+	public BigDecimal getTotal() {
 		return total;
 	}
-	public void setTotal(Integer total) {
+
+
+	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
+
+
 	public LocalDate getDataPedido() {
 		return dataPedido;
 	}
