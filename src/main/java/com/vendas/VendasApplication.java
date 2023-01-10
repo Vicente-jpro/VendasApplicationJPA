@@ -46,7 +46,13 @@ public class VendasApplication {
 			List<Cliente> clientes2 = clienteRepository.findByNomeLike( "Madalena Xavier" );
 			clientes2.forEach(System.out::println);
 			
+
+			System.out.println("Clientes pesquisado pelo nome ou id");
+			List<Cliente> clientes3 = clienteRepository.findByNomeOrIdClienteOrderByIdCliente( "", 3 );
+			clientes3.forEach(System.out::println);
 			
+			boolean existe = clienteRepository.existsByNome( "Madalena Xavier" );
+			System.out.println("Existe um cliente com o nome de Madalena Xavier ? "+existe);
 		};
 	}
 	
