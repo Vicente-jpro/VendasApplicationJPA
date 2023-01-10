@@ -1,6 +1,5 @@
 package com.vendas.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -29,14 +28,14 @@ public class Cliente {
 	private List<Pedido> pedidos ;
 	 
 	
-	public Cliente(Integer idCliente, String nome) {
-		this.idCliente = idCliente;
-		this.nome = nome;
-	}
-	
-	public Cliente(String nome) {
-		this.nome = nome;
-	}
+//	public Cliente(Integer idCliente, String nome) {
+//		this.idCliente = idCliente;
+//		this.nome = nome;
+//	}
+//	
+//	public Cliente(String nome) {
+//		this.nome = nome;
+//	}
 	public Cliente() {
 	}
 	
