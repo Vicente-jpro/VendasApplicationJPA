@@ -29,7 +29,7 @@ public class VendasApplication {
 			
 
 			System.out.println("Clientes pesquisado pelo nome");
-			List<Cliente> clientes2 = clienteRepository.findByNomeLike( new Cliente("Xavier"));
+			List<Cliente> clientes2 = clienteRepository.findByNomeLike( new Cliente("Xavier") );
 			clientes2.forEach(System.out::println);
 			
 			
