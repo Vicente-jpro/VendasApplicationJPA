@@ -83,7 +83,5 @@ public class Pedido {
 		this.dataPedido = dataPedido;
 	}
 
-
-
 	
 }

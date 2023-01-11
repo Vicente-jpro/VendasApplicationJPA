@@ -43,7 +43,7 @@ public class VendasApplication {
 			clientes1.forEach(System.out::println);
 
 			System.out.println("Clientes pesquisado pelo nome");
-			List<Cliente> clientes2 = clienteRepository.findByNomeLike( "Madalena Xavier" );
+			List<Cliente> clientes2 = clienteRepository.encontrarPorNome( "Madalena Xavier" );
 			clientes2.forEach(System.out::println);
 			
 
