@@ -1,21 +1,34 @@
 package com.vendas;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.vendas.models.Cliente;
+import com.vendas.models.Pedido;
 import com.vendas.repository.ClienteRepository;
+import com.vendas.repository.PedidoRepository;
 
+//@EnableJpaRepositories("com.package.base.*")
+//@ComponentScan(basePackages = { "com.vendas.*" })
+//@EntityScan("com.vendas.models.*") 
 @SpringBootApplication
 public class VendasApplication {
 
 	@Bean
-	public CommandLineRunner create(@Autowired ClienteRepository clienteRepository) {
+	public CommandLineRunner create(
+			@Autowired ClienteRepository clienteRepository,
+			@Autowired PedidoRepository pedidoRepository
+			) {
 		return args ->{
 			
 			Cliente cliente1 = new Cliente();
@@ -30,8 +43,19 @@ public class VendasApplication {
 			clienteRepository.save( cliente1 );
 			clienteRepository.save( cliente2 );
 			clienteRepository.save( cliente3 );
-//			clienteRepository.save( new Cliente( 1, "Luísa Anibal"));
-//			
+			
+			Pedido pedido = new Pedido();
+			pedido.setCliente(cliente1);
+			pedido.setDataPedido(LocalDate.now());
+			pedido.setTotal( BigDecimal.valueOf( 15555 ));
+			
+			//pedidoRepository.save(pedido);
+			
+			System.out.println("Encontrar o cliente com pedidos.");
+			Cliente cli = clienteRepository.findClienteFetchPedidos( cliente1.getIdCliente() );
+			System.out.println( cli );
+			System.out.println( cli.getPedidos() );
+			
 			List<Cliente> clientes = clienteRepository.findAll();
 			clientes.forEach(System.out::println);
 			

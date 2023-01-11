@@ -90,5 +90,13 @@ public class Pedido {
 		this.itens = itens;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Pedido [idPedido=" + idPedido + ", cliente=" + cliente + ", total=" + total + ", dataPedido="
+				+ dataPedido + ", itens=" + itens + "]";
+	}
+
+	
 	
 }
