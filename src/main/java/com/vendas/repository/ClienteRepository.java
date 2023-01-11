@@ -31,7 +31,10 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 //	void deleteByNome(String nome);
 	
 	//Carregar os clientes com os seus pedidos
-	@Query( value = "select c from clientes c left join fetch c.pedidos where c.id_cliente = :id_cliente ", nativeQuery = true )
+	@Query( value = " select * from clientes c "
+			+ " left join pedidos p"
+			+ " on c.id_cliente = p.cliente_id "
+			+ " where c.id_cliente = :id_cliente ", nativeQuery = true)
 	Cliente findClienteFetchPedidos(@Param("id_cliente") Integer id_cliente);
 
 	

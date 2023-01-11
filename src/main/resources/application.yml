@@ -1,11 +1,26 @@
 
 #Used to configure enviroment
-spring:
-  profiles:
-    active:
-    - test
   
 server:
  port: 8080
 # servlet:
  #   context-path: /sistema-venda
+
+spring:
+  profiles:
+    active:
+    - development
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    generate-ddl: true
+    hibernate: 
+      ddl-auto: update
+  sql:
+    init: 
+      platform: postgres
+      
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Microservices
+    username: postgres
+    password: vicente0301

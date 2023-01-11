@@ -25,7 +25,7 @@ public class Cliente {
 	private String nome;
 	
 	//Traser apenas os clientes sem os pedidos
-	@OneToMany( mappedBy = "cliente", fetch = FetchType.LAZY )
+	@OneToMany( mappedBy = "cliente", fetch = FetchType.LAZY)
 	private Set<Pedido> pedidos ;
 	 
 	
