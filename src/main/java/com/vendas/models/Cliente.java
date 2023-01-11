@@ -1,6 +1,6 @@
 package com.vendas.models;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 
 
 
@@ -25,7 +24,7 @@ public class Cliente {
 	private String nome;
 	
 	@OneToMany( mappedBy = "cliente")
-	private List<Pedido> pedidos ;
+	private Set<Pedido> pedidos ;
 	 
 	
 //	public Cliente(Integer idCliente, String nome) {
@@ -52,10 +51,15 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	@Override
-	public String toString() {
-		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + "]";
+	public Set<Pedido> getPedidos() {
+		return pedidos;
 	}
+
+	public void setPedidos(Set<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+
 	
 
 }
