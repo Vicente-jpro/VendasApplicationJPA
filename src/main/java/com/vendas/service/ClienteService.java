@@ -14,8 +14,8 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-	public void create(Cliente cliente) {
-		clienteRepository.save(cliente);
+	public Cliente create(Cliente cliente) {
+		return clienteRepository.save(cliente);
 	}
 	
 	public List<Cliente> readAll(){

@@ -1,6 +1,6 @@
 package com.vendas.models;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,8 +26,10 @@ public class Cliente {
 	
 	//Traser apenas os clientes sem os pedidos
 	@OneToMany( mappedBy = "cliente", fetch = FetchType.LAZY)
-	private Set<Pedido> pedidos ;
+	private List<Pedido> pedidos ;
 	 
+	
+	
 	public Cliente() {
 	}
 	
@@ -44,11 +46,11 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	public Set<Pedido> getPedidos() {
+	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
 
-	public void setPedidos(Set<Pedido> pedidos) {
+	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
 

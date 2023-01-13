@@ -24,12 +24,12 @@ public class Pedido {
 	@Column( name = "ID_PEDIDO")
 	private Integer idPedido;
 	
-	@ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.REMOVE} )
+	@ManyToOne( cascade = {CascadeType.MERGE} )
 	@JoinColumn( name = "CLIENTE_ID" )
     private Cliente cliente;
     
 	// 1000.00 -> length = 20, precision = 2
-    @Column( name = "TOTAL", length = 20, precision = 2)
+    @Column( name = "TOTAL", precision = 20, scale = 2)
     private BigDecimal total;
 	
     @Column( name = "DATA_PEDIDO")
@@ -93,8 +93,8 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [idPedido=" + idPedido + ", cliente=" + cliente + ", total=" + total + ", dataPedido="
-				+ dataPedido + ", itens=" + itens + "]";
+		return "Pedido [idPedido=" + idPedido + ", total=" + total + ", dataPedido="
+				+ dataPedido;
 	}
 
 	
