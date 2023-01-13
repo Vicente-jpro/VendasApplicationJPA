@@ -41,23 +41,9 @@ public class VendasApplication {
 			System.out.println("Encontrar o cliente com pedidos.");
 	
 			
-			List<Cliente> clientes = clienteService.readAll(); 
-			System.out.println("Existe cliente? "+clientes.isEmpty());
-			for(Cliente cli: clientes  ) {
-				System.out.println(""+cli.getNome());
-			}
-			//clientes.forEach(System.out::println);
+			Cliente clientePedidos = clienteService.findClienteFetchPedidos(4); 
+			System.out.println( " "+clientePedidos.toString() );
 			
-//			System.out.println("Eliminado o cliente.");
-//			clienteRepository.delete( cliente1 );
-//			
-//			System.out.println("Mostrando novos clientes");
-//			List<Cliente> clientes1 = clienteRepository.findAll();
-//			clientes1.forEach(System.out::println);
-//
-//			System.out.println("Clientes pesquisado pel
-//			boolean existe = clienteRepository.existsByNome( "Madalena Xavier" );
-//			System.out.println("Existe um cliente com o nome de Madalena Xavier ? "+existe);
 		};
 	}
 	

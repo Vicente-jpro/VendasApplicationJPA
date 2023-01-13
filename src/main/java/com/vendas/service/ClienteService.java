@@ -26,5 +26,9 @@ public class ClienteService {
 		// TODO Auto-generated method stub
 		return clienteRepository.findByNomeLike(nome);
 	}
+
+	public Cliente findClienteFetchPedidos(Integer idCliente) {
+		return clienteRepository.findClienteFetchPedidos(idCliente);
+	}
 	
 }

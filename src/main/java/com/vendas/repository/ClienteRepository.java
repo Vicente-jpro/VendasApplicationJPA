@@ -3,6 +3,8 @@ package com.vendas.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.vendas.models.Cliente;
@@ -28,12 +30,13 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 ////	@Modifying
 ////	void deleteByNome(String nome);
 //	
-//	//Carregar os clientes com os seus pedidos
-//	@Query( value = " select * from clientes c "
-//			+ " left join pedidos p"
-//			+ " on c.id_cliente = p.cliente_id "
-//			+ " where c.id_cliente = :id_cliente ", nativeQuery = true)
-//	Cliente findClienteFetchPedidos(@Param("id_cliente") Integer id_cliente);
+	//Carregar os clientes com os seus pedidos
+	@Query( value = " select * from clientes c "
+			+ " left join pedidos p"
+			+ " on c.id_cliente = p.cliente_id "
+			+ " where c.id_cliente = :id_cliente ", nativeQuery = true)
+	//@Query("select c from Clientes c left join fetch c.pedidos where c.id_cliente = :id_cliente")
+	Cliente findClienteFetchPedidos(@Param("id_cliente") Integer id_cliente);
 
 	
 }

@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ public class Cliente {
 	private String nome;
 	
 	//Traser apenas os clientes sem os pedidos
-	@OneToMany( mappedBy = "cliente")
+	@OneToMany( mappedBy = "cliente", fetch = FetchType.LAZY)
 	private Set<Pedido> pedidos ;
 	 
 	public Cliente() {
@@ -53,7 +54,7 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + ", pedidos=" + pedidos + "]";
+		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + "]";
 	}
 
 
