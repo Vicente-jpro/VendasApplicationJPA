@@ -37,21 +37,15 @@ public class VendasApplication {
 			this.clienteService.create(cliente1);
 			this.clienteService.create(cliente2);
 			this.clienteService.create(cliente3);
-			
-			//Pedido pedido = new Pedido();
-			//pedido.setCliente(cliente1);
-			//pedido.setDataPedido(LocalDate.now());
-			//pedido.setTotal( BigDecimal.valueOf( 15555 ));
-			
-			//pedidoRepository.save(pedido);
-			
+		
 			System.out.println("Encontrar o cliente com pedidos.");
-		//	Cliente cli = clienteRepository.findClienteFetchPedidos( cliente1.getIdCliente() );
-		//	System.out.println( cli );
-		//	System.out.println( cli.getPedidos() );
+	
 			
-			List<Cliente> clientes = this.clienteService.readAll();                                                                             
+			List<Cliente> clientes = clienteService.readAll(); 
 			System.out.println("Existe cliente? "+clientes.isEmpty());
+			for(Cliente cli: clientes  ) {
+				System.out.println(""+cli.getNome());
+			}
 			//clientes.forEach(System.out::println);
 			
 //			System.out.println("Eliminado o cliente.");
@@ -61,15 +55,7 @@ public class VendasApplication {
 //			List<Cliente> clientes1 = clienteRepository.findAll();
 //			clientes1.forEach(System.out::println);
 //
-//			System.out.println("Clientes pesquisado pelo nome");
-//			List<Cliente> clientes2 = clienteRepository.encontrarPorNome( "Madalena Xavier" );
-//			clientes2.forEach(System.out::println);
-//			
-//
-//			System.out.println("Clientes pesquisado pelo nome ou id");
-//			List<Cliente> clientes3 = clienteRepository.findByNomeOrIdClienteOrderByIdCliente( "", 3 );
-//			clientes3.forEach(System.out::println);
-//			
+//			System.out.println("Clientes pesquisado pel
 //			boolean existe = clienteRepository.existsByNome( "Madalena Xavier" );
 //			System.out.println("Existe um cliente com o nome de Madalena Xavier ? "+existe);
 		};

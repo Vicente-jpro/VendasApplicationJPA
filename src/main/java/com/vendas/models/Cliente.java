@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,18 +24,9 @@ public class Cliente {
 	private String nome;
 	
 	//Traser apenas os clientes sem os pedidos
-	@OneToMany( mappedBy = "cliente", fetch = FetchType.LAZY)
+	@OneToMany( mappedBy = "cliente")
 	private Set<Pedido> pedidos ;
 	 
-	
-//	public Cliente(Integer idCliente, String nome) {
-//		this.idCliente = idCliente;
-//		this.nome = nome;
-//	}
-//	
-//	public Cliente(String nome) {
-//		this.nome = nome;
-//	}
 	public Cliente() {
 	}
 	
