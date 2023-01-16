@@ -1,6 +1,5 @@
 package com.vendas.controller;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
 	@ResponseBody
-	@GetMapping( value = "/{nome}")
-	public String hello(@PathVariable  String nome ) {
+	@GetMapping( 
+			value = {"/{nome}", "/cliente/{nome}"},
+			consumes = {"application/json", "application/xml"}, // It is what my API going to consume (receive)
+			produces = {"application/json", "application/xml"} // It is what my API going to produce for others consume
+			)
+	public String hello(@PathVariable("nome")  String nome ) {
 		return String.format( "Hello %s", nome);
 	}
 	

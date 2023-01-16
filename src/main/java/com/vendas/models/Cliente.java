@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -19,13 +21,14 @@ public class Cliente {
 	
 	@Id @GeneratedValue( strategy = GenerationType.AUTO)
 	@Column( name = "ID_CLIENTE")
-	private Integer idCliente;
+	private Integer id;
 	
 	@Column( name = "NOME", length = 100 )
 	private String nome;
 	
 	//Traser apenas os clientes sem os pedidos
 	@OneToMany( mappedBy = "cliente", fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Pedido> pedidos ;
 	 
 	
@@ -33,12 +36,7 @@ public class Cliente {
 	public Cliente() {
 	}
 	
-	public Integer getIdCliente() {
-		return idCliente;
-	}
-	public void setIdCliente(Integer idCliente) {
-		this.idCliente = idCliente;
-	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -54,10 +52,22 @@ public class Cliente {
 		this.pedidos = pedidos;
 	}
 
+
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + "]";
+		return "Cliente [id=" + id + ", nome=" + nome + "]";
 	}
+
 
 
 	

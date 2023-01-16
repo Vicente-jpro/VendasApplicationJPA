@@ -13,7 +13,7 @@ import com.vendas.models.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 //
 	List<Cliente> findByNomeLike(String nome);
-//	
+    //Cliente findByIdCliente(Integer idCliente);
 //	List<Cliente> findByNomeOrIdCliente(String nome, Integer id);
 //	
 //	List<Cliente> findByNomeOrIdClienteOrderByIdCliente(String nome, Integer id);
