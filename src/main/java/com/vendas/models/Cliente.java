@@ -2,6 +2,7 @@ package com.vendas.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,11 +28,10 @@ public class Cliente {
 	private String nome;
 	
 	//Traser apenas os clientes sem os pedidos
-	@OneToMany( mappedBy = "cliente", fetch = FetchType.LAZY)
+	@OneToMany( mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Pedido> pedidos ;
 	 
-	
 	
 	public Cliente() {
 	}

@@ -44,5 +44,27 @@ public class ClienteService {
 		}
 		
 	}
+
+	public Cliente save(Cliente cliente) {
+		
+		try {
+			return clienteRepository.save(cliente);
+		} catch (IllegalArgumentException e) {
+			System.out.println("Não foi possivel salvar o cliente: "+e);
+			return null;
+		}
+		
+	}
+
+	public void delete(Integer idCliente) {
+		Cliente clienteEncontrado = this.findByIdCliente( idCliente );
+		try {
+			
+			clienteRepository.delete(clienteEncontrado);
+		} catch (IllegalArgumentException | NoSuchElementException e) {
+			System.out.println("Impossivel eliminar o cliente. Cliente não existe "+e);
+		}
+		
+	}
 	
 }
