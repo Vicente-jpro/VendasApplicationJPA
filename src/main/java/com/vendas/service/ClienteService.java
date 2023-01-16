@@ -66,5 +66,14 @@ public class ClienteService {
 		}
 		
 	}
+
+	public Cliente update(Cliente cliente, Integer idCliente) {
+		Cliente clienteEncontrado = this.findByIdCliente(idCliente);
+		if ( clienteEncontrado != null ) {
+			cliente.setId(idCliente);
+			return clienteRepository.save(cliente);
+		}
+		return null;
+	}
 	
 }
