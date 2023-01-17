@@ -9,6 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
 @Entity
 @Table( name = "ITEM_PEDIDOS")
 public class ItemPedido {
@@ -27,54 +33,6 @@ public class ItemPedido {
     
     @Column( name = "QUANTIDADE")
     private Integer quantidade;
-	
-	public ItemPedido(Integer id, Pedido pedido, Produto produto, Integer quantidade) {
-		this.id = id;
-		this.pedido = pedido;
-		this.produto = produto;
-		this.quantidade = quantidade;
-	}
-	
-	public ItemPedido(Pedido pedido, Produto produto, Integer quantidade) {
-		this.pedido = pedido;
-		this.produto = produto;
-		this.quantidade = quantidade;
-	}
-	
-	public ItemPedido() {
-	}
-	
-	public Integer getIdTemPedido() {
-		return id;
-	}
-	public void setIdTemPedido(Integer id) {
-		this.id = id;
-	}
-	public Pedido getPedido() {
-		return pedido;
-	}
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
-	public Produto getProduto() {
-		return produto;
-	}
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-	public int getQuantidade() {
-		return quantidade;
-	}
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	@Override
-	public String toString() {
-		return "ItemPedido [idTemPedido=" + id + ", pedido=" + pedido + ", produto=" + produto
-				+ ", quantidade=" + quantidade + "]";
-	}
-	
 	
 
 }

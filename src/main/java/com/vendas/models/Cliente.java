@@ -14,8 +14,12 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.Setter;
 
 
+@Getter
+@Setter
 @Entity
 @Table( name = "CLIENTES" )
 public class Cliente {
@@ -34,48 +38,6 @@ public class Cliente {
 	@OneToMany( mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Pedido> pedidos ;
-	 
-	
-	public Cliente() {
-	}
-	
-
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public List<Pedido> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
-
-
-	public Integer getId() {
-		return id;
-	}
-
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-
-	public String getBi() {
-		return bi;
-	}
-
-
-	public void setBi(String bi) {
-		this.bi = bi;
-	}
-
-
-	
+	 	
 
 }
