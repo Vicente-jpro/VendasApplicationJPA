@@ -34,7 +34,7 @@ public class ProdutoService {
 		Produto produtoEncontrado = this.findById(idProduto);
 		
 		if ( produtoEncontrado != null ) {
-			produto.setid(idProduto);
+			produto.setId(idProduto);
 			return this.save(produto);
 		}
 		return null;
