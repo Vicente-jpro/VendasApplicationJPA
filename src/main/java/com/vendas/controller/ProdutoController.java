@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +42,15 @@ public class ProdutoController {
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado.");
 	}
 	
+	@DeleteMapping("/{id_produto}")
+	public void delete(@PathVariable("id_produto") Integer idProduto) {
+		
+		boolean produtoEliminado = produtoService.delete(idProduto);		
+		if (!produtoEliminado)
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado.");
+		throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Produto eliminado");
+	}
+	
 	
 	@GetMapping("/{id_produto}")
 	public Produto findById(@PathVariable("id_produto") Integer idProduto) {
@@ -56,8 +66,6 @@ public class ProdutoController {
 	public List<Produto> findAll() {
 		return produtoService.findAll();
 	}
-	
-	 
 	
 	
 	

@@ -38,6 +38,16 @@ public class ProdutoService {
 			return this.save(produto);
 		}
 		return null;
+	}
+
+	public boolean delete(Integer idProduto) {
+		Produto produto = this.findById(idProduto);
+		
+		if ( produto != null ) {
+			produtoRepository.delete(produto);
+			return true;
+		}
+		return false;
 	} 
 
 }
