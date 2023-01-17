@@ -28,6 +28,16 @@ public class ProdutoService {
 		if (produto.isPresent())
 			return produto.get();
 		return null;
+	}
+
+	public Produto update(Produto produto, Integer idProduto) {
+		Produto produtoEncontrado = this.findById(idProduto);
+		
+		if ( produtoEncontrado != null ) {
+			produto.setid(idProduto);
+			return this.save(produto);
+		}
+		return null;
 	} 
 
 }
