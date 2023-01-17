@@ -2,6 +2,7 @@ package com.vendas.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -9,7 +10,6 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.stereotype.Service;
 
-import com.vendas.exceptions.ClienteNotFoundException;
 import com.vendas.models.Cliente;
 import com.vendas.repository.ClienteRepository;
 
@@ -38,9 +38,11 @@ public class ClienteService {
 	
 	public Cliente findByIdCliente(Integer idCliente) {
 
-		return clienteRepository.findById(idCliente)
-					.orElseThrow( () -> new	ClienteNotFoundException( "User not found") );
-		
+		Optional<Cliente> cliente = clienteRepository.findById(idCliente);
+					
+		if (cliente.isPresent())
+			return cliente.get();
+		return null;
 	}
 
 	public Cliente save(Cliente cliente) {
