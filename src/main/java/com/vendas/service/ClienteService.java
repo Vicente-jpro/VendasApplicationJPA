@@ -5,6 +5,9 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.stereotype.Service;
 
 import com.vendas.models.Cliente;
@@ -74,6 +77,18 @@ public class ClienteService {
 			return clienteRepository.save(cliente);
 		}
 		return null;
+	}
+	
+	public List<Cliente> findAll(Cliente cliente){
+
+		ExampleMatcher matcher = ExampleMatcher
+									.matching()
+									.withIgnoreCase()
+									.withStringMatcher(  StringMatcher.CONTAINING );
+		
+		Example<Cliente> example = Example.of(cliente, matcher);
+		
+		return clienteRepository.findAll(example);
 	}
 	
 }

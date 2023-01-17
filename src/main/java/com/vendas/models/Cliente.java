@@ -27,6 +27,9 @@ public class Cliente {
 	@Column( name = "NOME", length = 100 )
 	private String nome;
 	
+	@Column( name = "BI", length = 11 )
+	private String bi;
+	
 	//Traser apenas os clientes sem os pedidos
 	@OneToMany( mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore
@@ -63,11 +66,14 @@ public class Cliente {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Cliente [id=" + id + ", nome=" + nome + "]";
+	public String getBi() {
+		return bi;
 	}
 
+
+	public void setBi(String bi) {
+		this.bi = bi;
+	}
 
 
 	

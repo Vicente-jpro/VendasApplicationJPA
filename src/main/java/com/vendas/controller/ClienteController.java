@@ -1,5 +1,7 @@
 package com.vendas.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -61,7 +63,14 @@ public class ClienteController {
 
 	}
 
-	
+	// form-data
+	@GetMapping("/clientes")
+	@ResponseBody
+	public ResponseEntity find(Cliente cliente) {
+		List<Cliente> lista = clienteService.findAll(cliente);
+		
+		return ResponseEntity.ok(lista);
+	}
 	
 	
 	
