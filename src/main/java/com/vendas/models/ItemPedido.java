@@ -15,7 +15,7 @@ public class ItemPedido {
 	
 	@Id @GeneratedValue( strategy = GenerationType.AUTO)
 	@Column( name = "ID_TEM_PEDIDO")
-	private Integer idItemPedido;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn( name = "PEDIDO_ID")
@@ -28,8 +28,8 @@ public class ItemPedido {
     @Column( name = "QUANTIDADE")
     private Integer quantidade;
 	
-	public ItemPedido(Integer idItemPedido, Pedido pedido, Produto produto, Integer quantidade) {
-		this.idItemPedido = idItemPedido;
+	public ItemPedido(Integer id, Pedido pedido, Produto produto, Integer quantidade) {
+		this.id = id;
 		this.pedido = pedido;
 		this.produto = produto;
 		this.quantidade = quantidade;
@@ -45,10 +45,10 @@ public class ItemPedido {
 	}
 	
 	public Integer getIdTemPedido() {
-		return idItemPedido;
+		return id;
 	}
-	public void setIdTemPedido(Integer idItemPedido) {
-		this.idItemPedido = idItemPedido;
+	public void setIdTemPedido(Integer id) {
+		this.id = id;
 	}
 	public Pedido getPedido() {
 		return pedido;
@@ -71,7 +71,7 @@ public class ItemPedido {
 
 	@Override
 	public String toString() {
-		return "ItemPedido [idTemPedido=" + idItemPedido + ", pedido=" + pedido + ", produto=" + produto
+		return "ItemPedido [idTemPedido=" + id + ", pedido=" + pedido + ", produto=" + produto
 				+ ", quantidade=" + quantidade + "]";
 	}
 	

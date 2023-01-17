@@ -16,7 +16,7 @@ public class Produto {
 	
 	@Id @GeneratedValue( strategy = GenerationType.AUTO )
 	@Column( name = "ID_PRODUTO")
-    private Integer idProduto;
+    private Integer id;
 	
 	@Column( name = "PRECO_UNITARIO")
     private BigDecimal precoUnitario;
@@ -24,8 +24,8 @@ public class Produto {
 	@Column( name = "DESCRICAO")
     private String descricao;
 	
-    public Produto(Integer idProduto, BigDecimal precoUnitario, String descricao) {
-		this.idProduto = idProduto;
+    public Produto(Integer id, BigDecimal precoUnitario, String descricao) {
+		this.id = id;
 		this.precoUnitario = precoUnitario;
 		this.descricao = descricao;
 	}
@@ -38,12 +38,12 @@ public class Produto {
 	public Produto() {
 	}
 
-	public Integer getIdProduto() {
-		return idProduto;
+	public Integer getid() {
+		return id;
 	}
 
-	public void setIdProduto(Integer idProduto) {
-		this.idProduto = idProduto;
+	public void setid(Integer id) {
+		this.id = id;
 	}
 
 	public BigDecimal getPrecoUnitario() {
@@ -64,7 +64,7 @@ public class Produto {
 
 	@Override
 	public String toString() {
-		return "Produto [idProduto=" + idProduto + ", precoUnitario=" + precoUnitario + ", descricao=" + descricao
+		return "Produto [id=" + id + ", precoUnitario=" + precoUnitario + ", descricao=" + descricao
 				+ "]";
 	}
     

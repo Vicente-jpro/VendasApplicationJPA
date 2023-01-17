@@ -22,7 +22,7 @@ public class Pedido {
 	
 	@Id @GeneratedValue( strategy = GenerationType.AUTO)
 	@Column( name = "ID_PEDIDO")
-	private Integer idPedido;
+	private Integer id;
 	
 	@ManyToOne( cascade = {CascadeType.MERGE} )
 	@JoinColumn( name = "CLIENTE_ID" )
@@ -45,11 +45,11 @@ public class Pedido {
 	}
 	
 	
-	public Integer getIdPedido() {
-		return idPedido;
+	public Integer getid() {
+		return id;
 	}
-	public void setIdPedido(Integer idPedido) {
-		this.idPedido = idPedido;
+	public void setid(Integer id) {
+		this.id = id;
 	}
 
 
@@ -93,7 +93,7 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [idPedido=" + idPedido + ", total=" + total + ", dataPedido="
+		return "Pedido [id=" + id + ", total=" + total + ", dataPedido="
 				+ dataPedido;
 	}
 
