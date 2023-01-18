@@ -1,11 +1,11 @@
 package com.vendas.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vendas.exceptions.ProdutoNotFoundException;
 import com.vendas.models.Produto;
 import com.vendas.repository.ProdutoRepository;
 
@@ -24,10 +24,10 @@ public class ProdutoService {
 	}
 
 	public Produto findById(Integer idProduto) {
-		Optional<Produto> produto = produtoRepository.findById(idProduto);
-		if (produto.isPresent())
-			return produto.get();
-		return null;
+		return produtoRepository
+				.findById(idProduto)
+				.orElseThrow( () -> new ProdutoNotFoundException("Código do produto invalido: "+idProduto) );
+
 	}
 
 	public Produto update(Produto produto, Integer idProduto) {

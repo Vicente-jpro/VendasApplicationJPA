@@ -2,6 +2,7 @@ package com.vendas.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -43,7 +44,7 @@ public class Pedido {
     private LocalDate dataPedido;
 	
     @OneToMany( mappedBy = "pedido")
-    private Set<ItemPedido> itens;
+    private List<ItemPedido> itens;
     
 	
 }
