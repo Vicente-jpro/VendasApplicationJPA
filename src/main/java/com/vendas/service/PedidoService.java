@@ -35,10 +35,6 @@ public class PedidoService {
 	private ProdutoService produtoService;
 	
 	
-	public Pedido create(Pedido pedido) {
-		return this.pedidoRepository.save(pedido);
-	}
-	
 	public List<Pedido> findByCliente(Cliente cliente){
 		return this.pedidoRepository.findByCliente(cliente);
 	}

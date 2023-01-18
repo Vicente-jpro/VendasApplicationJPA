@@ -1,5 +1,6 @@
 package com.vendas.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,12 +16,13 @@ import com.vendas.service.PedidoService;
 @RequestMapping("/api/pedidos")
 public class PedidoController {
 	
+	@Autowired
 	private PedidoService pedidoService;
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Integer save(@RequestBody PedidoDto pedidoDto) {
-		Pedido pedidoRealisado =  pedidoService.save(pedidoDto);
+		Pedido pedidoRealisado = pedidoService.save(pedidoDto);
 		return pedidoRealisado.getId();
 	}
 
