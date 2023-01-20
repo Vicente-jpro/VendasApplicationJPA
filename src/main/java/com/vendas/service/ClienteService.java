@@ -61,7 +61,7 @@ public class ClienteService {
 			
 			clienteRepository.delete(clienteEncontrado);
 		} catch (IllegalArgumentException | NoSuchElementException e) {
-			System.out.println("Impossivel eliminar o cliente. Cliente não existe "+e);
+			System.out.println("Impossivel eliminar o cliente. Cliente não existe: "+e);
 		}
 		
 	}
