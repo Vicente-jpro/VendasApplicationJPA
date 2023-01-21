@@ -36,7 +36,8 @@ public class ApplicationControllerAdvice {
 		return new ApiErrors(mensagemErro);
 	}
 	
-	
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ApiErrors PedidoNotFoundException(com.vendas.exceptions.PedidoNotFoundException ex) {
 		this.mensagemErro = ex.getMessage();
 		return new ApiErrors(mensagemErro);
