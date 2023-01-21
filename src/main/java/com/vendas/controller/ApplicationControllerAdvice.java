@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.vendas.exceptions.ClienteNotFoundException;
 import com.vendas.exceptions.ItemPedidoException;
 import com.vendas.exceptions.ProdutoNotFoundException;
+import com.vendas.exceptions.PedidoNotFoundException;
 import com.vendas.utils.ApiErrors;
 
 @RestControllerAdvice
@@ -38,7 +39,7 @@ public class ApplicationControllerAdvice {
 	
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ApiErrors PedidoNotFoundException(com.vendas.exceptions.PedidoNotFoundException ex) {
+	public ApiErrors PedidoNotFoundException(PedidoNotFoundException ex) {
 		this.mensagemErro = ex.getMessage();
 		return new ApiErrors(mensagemErro);
 	}
