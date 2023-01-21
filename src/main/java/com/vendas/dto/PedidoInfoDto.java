@@ -1,7 +1,6 @@
 package com.vendas.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -18,6 +17,6 @@ public class PedidoInfoDto {
     private String nomeCliente;
     private String bi;  
     private BigDecimal total;
-    private LocalDate dataPedido;
+    private String dataPedido;
     private List<ItemPedidoInfoDto> itens;
 }

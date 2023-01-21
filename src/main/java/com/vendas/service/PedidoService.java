@@ -2,6 +2,7 @@ package com.vendas.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -24,7 +25,6 @@ public class PedidoService {
 	@Autowired
 	private PedidoRepository pedidoRepository;
 	
-
 	@Autowired
 	private ItemPedidoService itemPedidoService;
 	
@@ -77,5 +77,11 @@ public class PedidoService {
 				
 		}).collect(Collectors.toList() ); // Convert to list
 	}
+	
+	
+	public Optional<Pedido> obterTodosPedidos(Integer idPedido) {
+		return pedidoRepository.findByIdFetchItens(idPedido);			
+	}
+
 	
 }

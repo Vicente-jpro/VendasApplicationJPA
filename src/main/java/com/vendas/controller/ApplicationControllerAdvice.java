@@ -37,6 +37,9 @@ public class ApplicationControllerAdvice {
 	}
 	
 	
-	
+	public ApiErrors PedidoNotFoundException(com.vendas.exceptions.PedidoNotFoundException ex) {
+		this.mensagemErro = ex.getMessage();
+		return new ApiErrors(mensagemErro);
+	}
 	
 }
