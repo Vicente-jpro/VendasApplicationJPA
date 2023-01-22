@@ -2,6 +2,8 @@ package com.vendas.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,13 +43,13 @@ public class ClienteController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente save(@RequestBody Cliente cliente) {
+	public Cliente save(@RequestBody @Valid Cliente cliente) {
 	   return clienteService.save(cliente);
 	}
 	
 	@PatchMapping("/{id_cliente}")
 	public Cliente update(@PathVariable("id_cliente") Integer idCliente, 
-								 @RequestBody Cliente cliente) {
+								 @RequestBody @Valid Cliente cliente) {
 		Cliente clienteAtualizado = clienteService.update(cliente, idCliente);
 		if (clienteAtualizado != null)
 			return clienteAtualizado;

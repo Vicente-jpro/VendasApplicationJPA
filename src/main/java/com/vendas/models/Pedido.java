@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.vendas.StatusPedido;
 
@@ -41,9 +42,11 @@ public class Pedido {
     
 	// 1000.00 -> length = 20, precision = 2
     @Column( name = "TOTAL", precision = 20, scale = 2)
+    @NotNull
     private BigDecimal total;
 	
     @Column( name = "DATA_PEDIDO")
+    @NotNull
     private LocalDate dataPedido;
     
     @Enumerated(EnumType.STRING)

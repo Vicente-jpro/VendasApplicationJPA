@@ -2,6 +2,8 @@ package com.vendas.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,13 +29,13 @@ class ProdutoController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Produto save(@RequestBody Produto produto) {
+	public Produto save(@RequestBody @Valid Produto produto) {
 		return produtoService.save(produto);
 	}
 	
 	
 	@PatchMapping("/{id_produto}")
-	public Produto update(@RequestBody Produto produto, @PathVariable("id_produto") Integer idProduto) {
+	public Produto update(@RequestBody @Valid Produto produto, @PathVariable("id_produto") Integer idProduto) {
 		Produto produtoAtualizado = produtoService.update(produto, idProduto); 
 		if ( produtoAtualizado != null )
 			return produtoAtualizado;

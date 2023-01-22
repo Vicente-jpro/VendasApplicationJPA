@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
@@ -34,7 +36,7 @@ public class PedidoController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Integer save(@RequestBody PedidoDto pedidoDto) {
+	public Integer save(@RequestBody @Valid PedidoDto pedidoDto) {
 		Pedido pedidoRealisado = pedidoService.save(pedidoDto);
 		return pedidoRealisado.getId();
 	}
