@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,8 +21,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class PedidoDto {
-	
+	private Integer id;
 	private Integer cliente;
 	private BigDecimal total;
 	private List<ItemPedidoDto> itens;
