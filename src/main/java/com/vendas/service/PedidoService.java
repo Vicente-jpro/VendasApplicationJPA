@@ -10,9 +10,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vendas.StatusPedido;
 import com.vendas.dto.ItemPedidoDto;
 import com.vendas.dto.PedidoDto;
 import com.vendas.exceptions.ItemPedidoException;
+import com.vendas.exceptions.PedidoNotFoundException;
 import com.vendas.models.Cliente;
 import com.vendas.models.ItemPedido;
 import com.vendas.models.Pedido;
@@ -83,5 +85,17 @@ public class PedidoService {
 		return pedidoRepository.findByIdFetchItens(idPedido);			
 	}
 
+	public void update(Integer idPedido, PedidoDto pedidoDto) {
+		Pedido pedido = findById(idPedido);
+		pedido.setStatusPedido(StatusPedido.CANCELADO);
+		pedidoRepository.save(pedido);
+	}
+
+	
+	public Pedido findById(Integer idPedido) {
+		return pedidoRepository
+				.findById(idPedido)
+				.orElseThrow( () -> new PedidoNotFoundException("Código invalido. Pedido não encontrado"));
+	}
 	
 }

@@ -48,8 +48,13 @@ public class PedidoController {
 				.orElseThrow( ()-> new PedidoNotFoundException("Codigo do pedido invalido"));
 	} 
 	
-	
-	
+	@PatchMapping("/{id_pedido}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void updatePedido(@PathVariable("id_pedido") Integer idPedido, 
+							 @RequestBody PedidoDto pedidoDto) {
+		 pedidoService.update(idPedido, pedidoDto);
+	}
+		
 	private PedidoInfoDto converterParaPedidoInfoDto(Pedido pedido){
 		return PedidoInfoDto
 				.builder()
