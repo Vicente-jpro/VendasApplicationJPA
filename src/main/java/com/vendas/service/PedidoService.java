@@ -85,7 +85,7 @@ public class PedidoService {
 		return pedidoRepository.findByIdFetchItens(idPedido);			
 	}
 
-	public void update(Integer idPedido, PedidoDto pedidoDto) {
+	public void update(Integer idPedido) {
 		Pedido pedido = findById(idPedido);
 		pedido.setStatusPedido(StatusPedido.CANCELADO);
 		pedidoRepository.save(pedido);

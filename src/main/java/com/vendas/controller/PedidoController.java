@@ -50,9 +50,8 @@ public class PedidoController {
 	
 	@PatchMapping("/{id_pedido}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void updatePedido(@PathVariable("id_pedido") Integer idPedido, 
-							 @RequestBody PedidoDto pedidoDto) {
-		 pedidoService.update(idPedido, pedidoDto);
+	public void canselarPedido(@PathVariable("id_pedido") Integer idPedido) {
+		 pedidoService.update(idPedido);
 	}
 		
 	private PedidoInfoDto converterParaPedidoInfoDto(Pedido pedido){
