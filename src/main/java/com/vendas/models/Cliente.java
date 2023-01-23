@@ -32,13 +32,13 @@ public class Cliente {
 	private Integer id;
 	
 	@Column( name = "NOME", length = 100 )
-	@NotEmpty( message = "Campo nome é obrigatório")
+	@NotEmpty( message = "{campo.nome.obrigatorio}")
 	private String nome;
 	
 	@Column( name = "BI", length = 11 )
-	@NotEmpty( message = "Campo bi é obrigatório")
+	@NotEmpty( message = "{campo.bi.obrigatorio}")
 	private String bi;
-	
+
 	//Traser apenas os clientes sem os pedidos
 	@OneToMany( mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore

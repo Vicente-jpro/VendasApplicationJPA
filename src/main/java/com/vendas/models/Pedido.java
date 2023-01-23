@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table( name = "PEDIDOS")
 public class Pedido {	
-	
+		    
 	@Id @GeneratedValue( strategy = GenerationType.AUTO)
 	@Column( name = "ID_PEDIDO")
 	private Integer id;
@@ -41,8 +41,9 @@ public class Pedido {
     private Cliente cliente;
     
 	// 1000.00 -> length = 20, precision = 2
+
+    @NotNull( message = "{campo.total-pedido.obrigatorio}")
     @Column( name = "TOTAL", precision = 20, scale = 2)
-    @NotNull
     private BigDecimal total;
 	
     @Column( name = "DATA_PEDIDO")
