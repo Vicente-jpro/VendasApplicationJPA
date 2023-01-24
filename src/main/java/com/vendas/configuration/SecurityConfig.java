@@ -1,5 +1,7 @@
 package com.vendas.configuration;
 
+import java.util.ArrayList;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,7 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			//.antMatchers("/api/clientes/**").hasRole("USER") Cliente deve ter ROLE "USER" para acessar API
 			// .antMatchers("/api/clientes/**").hasAuthority("MANTER USUARIO") Autenticado permante para acessar API
 			//.antMatchers("/api/clientes/**").permitAll() Permitir todos os usuários acessarem essa rota
-			.antMatchers("/api/clientes/**").permitAll()
+			.antMatchers("/api/clientes/**")
+				.hasAnyRole("USER", "ADMIN")
+				
+			.antMatchers("/api/pedidos/**")
+				.hasAnyRole("USER", "ADMIN")
+			
+			.antMatchers("/api/produtos/**")
+				.hasRole("ADMIN")
 			.and()
 			.formLogin();
 	}
