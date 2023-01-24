@@ -2,6 +2,7 @@ package com.vendas.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -9,14 +10,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.vendas.interfaces.UsuarioServiceImp;
+import com.vendas.service.UsuarioService;
 
 @SuppressWarnings("deprecation")
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
-	private UsuarioServiceImp usuarioServiceImp;
+	private UsuarioService usuarioServiceImp;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -46,6 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			
 			.antMatchers("/api/produtos/**")
 				.hasRole("ADMIN")
+			.antMatchers(HttpMethod.POST, "/api/usuarios/**")
+				.permitAll()
+			.anyRequest().authenticated()
 			.and()
 			// .formLogin() Fazer autenticacao via formulario html
 			.httpBasic(); 
