@@ -1,7 +1,6 @@
 package com.vendas.configuration;
 
-import java.util.ArrayList;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,9 +9,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.vendas.interfaces.UsuarioServiceImp;
+
 @SuppressWarnings("deprecation")
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
+	
+	@Autowired
+	private UsuarioServiceImp usuarioServiceImp;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -21,11 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication()
-				.passwordEncoder( passwordEncoder())
-				.withUser("vicente")
-				.password( passwordEncoder().encode("vicente0301"))
-				.roles("USER");
+		auth.userDetailsService(usuarioServiceImp)
+				.passwordEncoder( passwordEncoder());
 	}
 
 	@Override
@@ -46,7 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/api/produtos/**")
 				.hasRole("ADMIN")
 			.and()
-			.formLogin();
+			// .formLogin() Fazer autenticacao via formulario html
+			.httpBasic(); 
+		// .httpBasic(); Utilizado para fazer autenticação via header no ato da requisição.
 	}
 
 }
