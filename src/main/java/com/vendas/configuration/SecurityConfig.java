@@ -28,7 +28,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		super.configure(http);
+		http
+			.csrf().disable() // Para trabalhar no modo API
+			.authorizeHttpRequests() // Autorizar o pedido
+			// .antMatchers("/api/clientes/**").authenticated() Cliente deve estar autenticado para acessar API clientes
+			//.antMatchers("/api/clientes/**").hasRole("USER") Cliente deve ter ROLE "USER" para acessar API
+			// .antMatchers("/api/clientes/**").hasAuthority("MANTER USUARIO") Autenticado permante para acessar API
+			//.antMatchers("/api/clientes/**").permitAll() Permitir todos os usuários acessarem essa rota
+			.antMatchers("/api/clientes/**").permitAll()
+			.and()
+			.formLogin();
 	}
 
 }
