@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import com.vendas.VendasApplication;
 import com.vendas.models.Usuario;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -25,7 +27,7 @@ public class JwtService {
 	@Value("${security.jwt.chave-assinatura}")
 	private String chaveAssinatura;
 	
-	// Gerar token
+	// Gerar token codificado
 	public String gerarToken(Usuario usuario) {
 		long minutoExpiracao = Long.valueOf(expiracao);
 		LocalDateTime dataHoraExpiracao = LocalDateTime.now().plusMinutes(minutoExpiracao);
@@ -40,6 +42,34 @@ public class JwtService {
 					
 	}
 	
+	// Decodificar o token
+	private Claims obterClaims(String token) throws ExpiredJwtException{
+		return Jwts
+				.parser()
+				.setSigningKey( chaveAssinatura)
+				.parseClaimsJws(token)
+				.getBody();
+	}
+	
+	public boolean tokenValido(String token) {
+		try {
+			Claims claims = obterClaims(token);
+			Date dataExpiDate = claims.getExpiration();
+			LocalDateTime data = dataExpiDate
+											.toInstant()
+											.atZone(ZoneId.systemDefault())
+											.toLocalDateTime();
+			return !LocalDateTime.now().isAfter(data);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
+	public String obterLoginUsuario(String token) throws ExpiredJwtException{
+		return (String) obterClaims(token).getSubject();
+	}
+	
 	
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(VendasApplication.class);
@@ -48,6 +78,10 @@ public class JwtService {
 		usuario.setUsername("vicente");
 		String token = service.gerarToken(usuario);
 		System.out.println(token);
+		
+		boolean isTokenValido = service.tokenValido(token);
+		System.out.println("O token está valido? "+isTokenValido);
+		System.out.println(service.obterLoginUsuario(token));
 	}
 	
 }
