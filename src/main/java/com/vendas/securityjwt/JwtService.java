@@ -1,4 +1,4 @@
-package com.vendas.service;
+package com.vendas.securityjwt;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
