@@ -7,9 +7,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.vendas.securityjwt.JwtAuthFilter;
+import com.vendas.securityjwt.JwtService;
 import com.vendas.service.UsuarioService;
 
 @SuppressWarnings("deprecation")
@@ -17,7 +22,15 @@ import com.vendas.service.UsuarioService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
-	private UsuarioService usuarioServiceImp;
+	private UsuarioService usuarioService;
+	
+	@Autowired 
+	private JwtService jwtService;
+	
+	@Bean
+	public OncePerRequestFilter jwtFilter() {
+		return new JwtAuthFilter(jwtService, usuarioService);
+	}
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -26,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(usuarioServiceImp)
+		auth.userDetailsService(usuarioService)
 				.passwordEncoder( passwordEncoder());
 	}
 
@@ -52,8 +65,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.anyRequest().authenticated()
 			.and()
 			// .formLogin() Fazer autenticacao via formulario html
-			.httpBasic(); 
 		// .httpBasic(); Utilizado para fazer autenticação via header no ato da requisição.
+				.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.and()
+				.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 
 }
