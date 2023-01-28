@@ -9,11 +9,13 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -35,4 +37,9 @@ public class Usuario {
 	@Column 
 	//@NotEmpty( message = "{campo.admin.obrigatorio}")
 	private boolean admin;
+	
+	public Usuario(String username, String senha) {
+		this.username = username;
+		this.senha = senha;
+	}
 }

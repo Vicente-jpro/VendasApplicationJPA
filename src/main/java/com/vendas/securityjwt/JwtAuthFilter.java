@@ -15,16 +15,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.vendas.service.UsuarioService;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 
 
 public class JwtAuthFilter extends OncePerRequestFilter{
 
 	private JwtService jwtService;
 	private UsuarioService usuarioService;
-	
 	
 	
 	public JwtAuthFilter(JwtService jwtService, UsuarioService usuarioService) {
