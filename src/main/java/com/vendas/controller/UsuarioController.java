@@ -46,7 +46,6 @@ public class UsuarioController {
 	public TokenDto autenticar(@RequestBody CredenciaisDto credenciaisDto) {
 		
 		try {
-			
 			Usuario usuario = Usuario
 								.builder()
 								.username(credenciaisDto.getUsername())
@@ -55,7 +54,6 @@ public class UsuarioController {
 			UserDetails usuarioAutenticado = this.usuarioService.autenticar(usuario);
 			
 			String token = jwtService.gerarToken( usuario );
-				
 				
 			return TokenDto
 					.builder()

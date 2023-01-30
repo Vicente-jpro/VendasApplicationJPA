@@ -71,17 +71,17 @@ public class JwtService {
 	}
 	
 	
-	public static void main(String[] args) {
-		ConfigurableApplicationContext context = SpringApplication.run(VendasApplication.class);
-		JwtService service = context.getBean(JwtService.class);
-		Usuario usuario = new Usuario();
-		usuario.setUsername("vicente");
-		String token = service.gerarToken(usuario);
-		System.out.println(token);
-		
-		boolean isTokenValido = service.tokenValido(token);
-		System.out.println("O token está valido? "+isTokenValido);
-		System.out.println(service.obterLoginUsuario(token));
-	}
+//	public static void main(String[] args) {
+//		ConfigurableApplicationContext context = SpringApplication.run(VendasApplication.class);
+//		JwtService service = context.getBean(JwtService.class);
+//		Usuario usuario = new Usuario();
+//		usuario.setUsername("vicente");
+//		String token = service.gerarToken(usuario);
+//		System.out.println(token);
+//		
+//		boolean isTokenValido = service.tokenValido(token);
+//		System.out.println("O token está valido? "+isTokenValido);
+//		System.out.println(service.obterLoginUsuario(token));
+//	}
 	
 }
