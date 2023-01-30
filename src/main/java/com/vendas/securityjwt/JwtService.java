@@ -6,11 +6,8 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
-import com.vendas.VendasApplication;
 import com.vendas.models.Usuario;
 
 import io.jsonwebtoken.Claims;
