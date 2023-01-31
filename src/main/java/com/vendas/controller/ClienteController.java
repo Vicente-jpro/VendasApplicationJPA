@@ -21,8 +21,14 @@ import org.springframework.web.server.ResponseStatusException;
 import com.vendas.models.Cliente;
 import com.vendas.service.ClienteService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping("/api/clientes")
+@Api("Api Clientes")
 public class ClienteController {
 	
 	@Autowired
@@ -32,6 +38,11 @@ public class ClienteController {
 	
 	
 	@GetMapping( value = "{id_cliente}", produces = "application/json" )
+	@ApiOperation("Obter detalhes de um cliente.")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "Cliente encontrado"),
+		@ApiResponse(code = 404, message = "Cliente não encontrado para o Id informado")
+	})
 	public Cliente getCliente(@PathVariable("id_cliente") Integer idCliente) {
 		Cliente cliente = clienteService.findByIdCliente(idCliente);
 		
@@ -43,11 +54,21 @@ public class ClienteController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@ApiOperation("Salvar cliente.")
+	@ApiResponses({
+		@ApiResponse(code = 201, message = "Cliente salvo com sucesso."),
+		@ApiResponse(code = 400, message = "Erro de validação.")
+	})
 	public Cliente save(@RequestBody @Valid Cliente cliente) {
 	   return clienteService.save(cliente);
 	}
 	
 	@PatchMapping("/{id_cliente}")
+	@ApiOperation("Atualizar cliente")
+	@ApiResponses({
+		@ApiResponse(code = 201, message = "Cliente atualizado com sucesso."),
+		@ApiResponse(code = 404, message = "Cliente não encontrado. Id invalido")
+	})
 	public Cliente update(@PathVariable("id_cliente") Integer idCliente, 
 								 @RequestBody @Valid Cliente cliente) {
 		Cliente clienteAtualizado = clienteService.update(cliente, idCliente);
@@ -58,12 +79,21 @@ public class ClienteController {
 	
 	@DeleteMapping("/{id_cliente}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ApiOperation("Eliminar clientes")
+	@ApiResponses({
+		@ApiResponse(code = 204, message = "Cliente eliminado com successo"),
+		@ApiResponse(code = 404, message = "Cliente não encontrado para ser eliminado. Id invalido.")
+	})
 	public void delete(@PathVariable("id_cliente") Integer idCliente) {
 		clienteService.delete(idCliente);	
 	}
 
 	// form-data
 	@GetMapping
+	@ApiOperation("Listar clientes")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "Clientes listados com sucesso")
+	})
 	public ResponseEntity find(Cliente cliente) {
 		List<Cliente> lista = clienteService.findAll(cliente);
 		
