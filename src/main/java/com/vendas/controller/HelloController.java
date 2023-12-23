@@ -1,11 +1,19 @@
 package com.vendas.controller;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.vendas.dto.UsuarioDto;
+import com.vendas.utils.CurrentUser;
+import com.vendas.utils.LoggedInUser;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/hello")
@@ -28,8 +36,9 @@ public class HelloController {
 	}
 
 	@GetMapping("test")
-	public Object test() {
-		return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	public Object test(@LoggedInUser CurrentUser currentUser) {
+
+		return currentUser.getUsuario();
 	}
 
 }

@@ -1,53 +1,60 @@
 package com.vendas.utils;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.vendas.models.Usuario;
+
+import lombok.Data;
+
+@Data
 public class CurrentUser implements UserDetails {
 
-    private User user;
+    private Usuario usuario;
+    private UserDetails userDetails;
 
-    public CurrentUser(User user) {
-        this.user = user;
+    public CurrentUser(UserDetails userDetails, Usuario usuario) {
+        this.userDetails = userDetails;
+        this.usuario = usuario;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList("ROLE_" + user.getAuthorities());
+        return AuthorityUtils.createAuthorityList("" + userDetails.getAuthorities());
     }
 
     @Override
     public String getPassword() {
-        return this.user.getPassword();
+        return this.userDetails.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.user.getUsername();
+        return this.userDetails.getUsername();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.user.isAccountNonExpired();
+        return this.userDetails.isAccountNonExpired();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.user.isAccountNonLocked();
+        return this.userDetails.isAccountNonLocked();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.user.isCredentialsNonExpired();
+        return this.userDetails.isCredentialsNonExpired();
     }
 
     @Override
     public boolean isEnabled() {
-        return this.user.isEnabled();
+        return this.userDetails.isEnabled();
     }
 
 }

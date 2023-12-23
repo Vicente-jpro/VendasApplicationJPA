@@ -2,6 +2,7 @@ package com.vendas.service;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,9 +11,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.vendas.dto.UsuarioDto;
 import com.vendas.exceptions.SenhaInvalidaException;
 import com.vendas.models.Usuario;
 import com.vendas.repository.UsuarioRepository;
+import com.vendas.utils.CurrentUser;
 
 @Service
 public class UsuarioService implements UserDetailsService {
@@ -49,8 +52,10 @@ public class UsuarioService implements UserDetailsService {
 				.password(usuario.getSenha())
 				.roles(usuarioRoles)
 				.build();
-		return user;
+
+		return new CurrentUser(user, usuario);
 	}
+
 
 	@Transactional
 	public Usuario save(Usuario usuario) {
