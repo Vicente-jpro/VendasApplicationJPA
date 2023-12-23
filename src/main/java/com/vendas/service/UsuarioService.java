@@ -15,42 +15,43 @@ import com.vendas.models.Usuario;
 import com.vendas.repository.UsuarioRepository;
 
 @Service
-public class UsuarioService implements UserDetailsService{
+public class UsuarioService implements UserDetailsService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	public UserDetails autenticar(Usuario usuario) {
 		UserDetails userDetails = this.loadUserByUsername(usuario.getUsername());
-		//passwordEncoder.matches(senhaDigitada, senhaGravadaNoBD)
+		// passwordEncoder.matches(senhaDigitada, senhaGravadaNoBD)
 		boolean senhaCorreta = passwordEncoder.matches(usuario.getSenha(), userDetails.getPassword());
-		
+
 		if (senhaCorreta) {
 			return userDetails;
 		}
-		
+
 		throw new SenhaInvalidaException();
 	}
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = usuarioRepository
-			.findByUsername(username)
-			.orElseThrow( () -> new UsernameNotFoundException("Usuário não encontrado"));
-		
-		String[] usuarioRoles = usuario.isAdmin() ? new String[]{"ADMIN", "USER"} : new String[]{"USER"}; 
-		
-		return User
+				.findByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+
+		String[] usuarioRoles = usuario.isAdmin() ? new String[] { "ADMIN", "USER" } : new String[] { "USER" };
+
+		UserDetails user = User
 				.builder()
 				.username(usuario.getUsername())
-				.password( usuario.getSenha() )
+				.password(usuario.getSenha())
 				.roles(usuarioRoles)
 				.build();
+		return user;
 	}
-	
+
 	@Transactional
 	public Usuario save(Usuario usuario) {
 		return this.usuarioRepository.save(usuario);
