@@ -13,31 +13,34 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table( name = "usuarios")
+@Table(name = "usuarios")
 public class Usuario {
 	@Id
-	@Column( name = "id_usuario")
-	@GeneratedValue( strategy = GenerationType.AUTO)
+	@Column(name = "id_usuario")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
-	@Column
-	@NotEmpty( message = "{campo.username.obrigatorio}")
+
+	@Column(name = "username")
+	@NotEmpty(message = "{campo.username.obrigatorio}")
 	private String username;
-	
-	@Column
-	@NotEmpty( message = "{campo.senha.obrigatorio}")
+
+	@Column(name = "senha")
+	@NotEmpty(message = "{campo.senha.obrigatorio}")
 	private String senha;
-	
-	@Column 
-	//@NotEmpty( message = "{campo.admin.obrigatorio}")
+
+	@Column(name = "email", unique = true)
+	@NotEmpty(message = "Email deve existir")
+	private String email;
+
+	@Column(name = "admin")
+	// @NotEmpty( message = "{campo.admin.obrigatorio}")
 	private boolean admin;
-	
+
 	public Usuario(String username, String senha) {
 		this.username = username;
 		this.senha = senha;

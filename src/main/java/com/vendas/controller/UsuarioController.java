@@ -21,51 +21,55 @@ import com.vendas.models.Usuario;
 import com.vendas.securityjwt.JwtService;
 import com.vendas.service.UsuarioService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
 
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@Autowired
-	private PasswordEncoder passwordEncoder; 
-	
+	private PasswordEncoder passwordEncoder;
+
 	@Autowired
 	private JwtService jwtService;
-	
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario salve(@RequestBody @Valid Usuario usuario) {
-		String senhaCriptografada = passwordEncoder.encode( usuario.getSenha());
+		log.info("Salvar usuário");
+
+		String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
 		usuario.setSenha(senhaCriptografada);
 		return this.usuarioService.save(usuario);
 	}
-	
+
 	@PostMapping("/auth")
 	public TokenDto autenticar(@RequestBody CredenciaisDto credenciaisDto) {
-		
+		log.info("Autenticar usuário.");
 		try {
 			Usuario usuario = Usuario
-								.builder()
-								.username(credenciaisDto.getUsername())
-								.senha(credenciaisDto.getSenha())
-								.build();
+					.builder()
+					.email(credenciaisDto.getEmail())
+					.senha(credenciaisDto.getSenha())
+					.build();
 			UserDetails usuarioAutenticado = this.usuarioService.autenticar(usuario);
-			
-			String token = jwtService.gerarToken( usuario );
-				
+
+			String token = jwtService.gerarToken(usuario);
+
 			return TokenDto
 					.builder()
-					.username(usuario.getUsername())
+					.email(usuario.getEmail())
 					.token(token)
 					.build();
-			
+
 		} catch (SenhaInvalidaException | UsernameNotFoundException e) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
 		}
-		
-		
+
 	}
-	
+
 }

@@ -11,12 +11,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.vendas.dto.UsuarioDto;
 import com.vendas.exceptions.SenhaInvalidaException;
 import com.vendas.models.Usuario;
 import com.vendas.repository.UsuarioRepository;
 import com.vendas.utils.CurrentUser;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class UsuarioService implements UserDetailsService {
 
@@ -27,21 +29,22 @@ public class UsuarioService implements UserDetailsService {
 	private UsuarioRepository usuarioRepository;
 
 	public UserDetails autenticar(Usuario usuario) {
-		UserDetails userDetails = this.loadUserByUsername(usuario.getUsername());
+		log.info("Autenticando o usuário...");
+		UserDetails userDetails = this.loadUserByUsername(usuario.getEmail());
 		// passwordEncoder.matches(senhaDigitada, senhaGravadaNoBD)
 		boolean senhaCorreta = passwordEncoder.matches(usuario.getSenha(), userDetails.getPassword());
 
 		if (senhaCorreta) {
 			return userDetails;
 		}
-
+		log.info("Usuário não encontrado");
 		throw new SenhaInvalidaException();
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Usuario usuario = usuarioRepository
-				.findByUsername(username)
+				.findByEmail(email)
 				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
 
 		String[] usuarioRoles = usuario.isAdmin() ? new String[] { "ADMIN", "USER" } : new String[] { "USER" };
@@ -55,7 +58,6 @@ public class UsuarioService implements UserDetailsService {
 
 		return new CurrentUser(user, usuario);
 	}
-
 
 	@Transactional
 	public Usuario save(Usuario usuario) {
